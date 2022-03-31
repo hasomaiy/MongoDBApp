@@ -12,3 +12,6 @@ table.dataTable thead .sorting_desc_disabled:before {
 }
 
 
+.dataTables_length {
+    float: right;
+}

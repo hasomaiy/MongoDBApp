@@ -1,5 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page import="com.mongodb.BasicDBList"%>
+<%@page import="com.mongodb.DBObject"%>
+<%@page import="com.mongodb.DB"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.lang.reflect.Array"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%@page import="com.mongodb.MongoClient"%>
 <%@page import="com.mongodb.client.MongoDatabase"%>
@@ -86,7 +92,29 @@
 	      <td><a href="customerDetails.jsp?Id=<%=result.get("_id")%>" class="link-primary"><%= result.getString("username") %></a></td>
 	      <td><%= result.getString("email") %></td>
 	      <td><%= result.get("active") %></td>
-	      <td><a href="#" class="link-primary"><%= result.get("accounts") %></a></td>
+	      <%
+	     
+	    	ArrayList <Integer> account = (ArrayList<Integer>) result.get("accounts");
+	    	
+	    	StringBuilder sb = new StringBuilder();
+	      	String st = "";
+	      %> <td>
+	      
+	      <%
+	 for (int i = 0 ; i <account.size(); i ++)
+	 {
+		
+			 st = account.get(i).toString();
+		
+	      %>
+	      
+	   <a href="accountDetails.jsp?Id=<%=st%>&userid =<%=result.get("_id")%> " class="link-primary"><%=st%></a>
+	    	<%
+	    	}
+	      
+
+	    %>
+	    </td>	
 	    </tr>
 			
 	<%		
@@ -94,7 +122,7 @@
 	%>  
 	</tbody>
 </table>	
-	<footer class="text-muted py-5">
+	<!--  <footer class="text-muted py-5">
 	  <div class="container">
 	    <p class="float-end mb-1">
 	      <a href="#">Back to top</a>
@@ -102,7 +130,7 @@
 	    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
 	    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.1/getting-started/introduction/">getting started guide</a>.</p>
 	  </div>
-	</footer>
+	</footer>-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<script
       src="https://code.jquery.com/jquery-3.6.0.min.js"

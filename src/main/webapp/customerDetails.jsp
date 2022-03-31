@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%@page import="com.mongodb.MongoClient"%>
+<%@page import ="java.util.ArrayList" %>
 <%@page import="com.mongodb.client.MongoDatabase"%>
 <%@page import="com.mongodb.client.MongoCollection"%>
 <%@page import="org.bson.Document"%>
@@ -23,6 +24,7 @@
 		MongoClient mongoClient = new MongoClient("localhost", 27017);
 		MongoDatabase db = mongoClient.getDatabase("sample_analytics");
 		MongoCollection<Document> collection = db.getCollection("customers");
+		
 		
 		BasicDBObject query = new BasicDBObject();
 		query.put("_id",new ObjectId(id));
@@ -123,12 +125,73 @@
 				    </tr>
 				  </tbody>
 				</table>
+				
+<!-- Account details -->
+<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+				  <thead>
+				    <tr>
+				    
+				      <th scope="col">Account Id</th>
+				      <th scope="col">Products</th>
+				      <th scope="col">Limit</th>
+				      
+				    </tr>
+				  </thead>
+
+	<% 	
+	MongoCollection<Document> account_collection = db.getCollection("accounts");
+	ArrayList<Integer> account_list = (ArrayList<Integer>)result.get("accounts");
+	
+		
+	
+   	for(int i = 0; i < account_list.size();i++)
+   				{
+   		
+   		BasicDBObject account_query = new BasicDBObject();
+   		account_query.put("account_id",account_list.get(i));
+   		
+   		
+   			
+   		MongoCursor<Document> account_cursor = account_collection.find(account_query).iterator();
+   		//MongoCursor<Document> cursor = collection.find(query).iterator();
+   		
+   		Document account_result = null;
+   		while(account_cursor.hasNext())
+   		{
+   			account_result = account_cursor.next();
+   			
+   		
+			%>
+	
+			
+				  <tbody>
+				  	<tr>
+				   		<td><%=account_result.getInteger("account_id") %> </td>
+				  		<td><%=account_result.get("products") %> </td>
+				  		<td><%=account_result.getInteger("limit") %> </td>
+				  		
+				  	
+				  	</tr>
+				  
+				  
+				  
+				  </tbody>
+								
+				
+				
+				<%
+   		
+   		}
+   				}
+   		 %>
+				</table>
 	            </div>
 	        </div>
 	    </div>
 </div>
 </div>
 <%		
+   
 		}
 	%>                                          
 </body>
