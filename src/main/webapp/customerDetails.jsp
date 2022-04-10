@@ -9,17 +9,22 @@
 <%@page import="com.mongodb.BasicDBObject" %>
 <%@page import="com.mongodb.client.MongoCursor" %>
 <%@page import="org.bson.types.ObjectId" %>
+
+
+
+
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
-<body>
+<body>	
+	
 	<% 
 		String id = request.getParameter("Id");
 	%>
-
+	
 	<% 
 		MongoClient mongoClient = new MongoClient("localhost", 27017);
 		MongoDatabase db = mongoClient.getDatabase("sample_analytics");
@@ -47,7 +52,8 @@
 	            <div class="table-responsive">
 	            <table class="table table-user-information">
 	                <tbody>
-	                    <tr>        
+	                    <tr>
+	                    	        
 	                        <td>
 	                            <strong>
 	                                <span class="glyphicon glyphicon-asterisk text-primary"></span>
@@ -57,6 +63,13 @@
 	                        <td class="text-primary">
 	                            <%= result.getString("name") %>
 	                        </td>
+
+					 		<td style="vertical-align : middle;text-align:center;" class="submission" rowspan="3">
+	                        <a href="editCustomerDetails.jsp?Id=<%=id%>">Edit</a>
+	                        </td>
+	                        
+
+	                      
 	                    </tr>
 	                    <tr>    
 	                        <td>
@@ -69,18 +82,7 @@
 	                            <%= result.getString("address") %>     
 	                        </td>
 	                    </tr>
-	                    <tr>        
-	                        <td>
-	                            <strong>
-	                                <span class="glyphicon glyphicon-cloud text-primary"></span>  
-	                                birthdate                                                
-	                            </strong>
-	                        </td>
-	                        <td class="text-primary">
-	                            <%= result.getDate("birthdate") %>   
-	                        </td>
-	                    </tr>
-	
+	                    
 	                    <tr>        
 	                        <td>
 	                            <strong>
@@ -91,7 +93,30 @@
 	                        <td class="text-primary">
 	                            <%= result.getString("email") %>   
 	                        </td>
-	                    </tr>                        
+	                        
+	                        
+	                    </tr>
+	                    
+	                    <tr class="blank_row" rowspan="3">
+    					<td colspan="3"></td>
+						</tr>		
+	                    
+
+	                    
+	                    <tr>        
+	                        <td>
+	                            <strong>
+	                                <span class="glyphicon glyphicon-cloud text-primary"></span>  
+	                                birthdate                                                
+	                            </strong>
+	                        </td>
+	        
+	                        <td class="text-primary">
+	                        	  <%= result.getDate("birthdate") %>
+	                        </td>
+	                    </tr>
+	
+	                                            
 	                </tbody>
 	            </table>
 	            
@@ -173,7 +198,7 @@
 				  	
 				  	</tr>
 				  
-				  
+		
 				  
 				  </tbody>
 								
@@ -183,8 +208,12 @@
    		
    		}
    				}
+   		
+   	
    		 %>
+   		 <th class="submission" colspan="3"><div align="center"><a href="index.jsp">Back</a> </div></th>
 				</table>
+				
 	            </div>
 	        </div>
 	    </div>
