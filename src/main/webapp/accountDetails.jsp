@@ -56,9 +56,7 @@ while(cursor.hasNext()){
 <div class="container bootstrap snippets bootdey">
 <div class="panel-body inf-content">
     <div class="row">
-        <div class="col-md-4">
-            <img alt="" style="width:400px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario"> 
-        </div>
+    
         <div class="col-md-6">
             <strong>Information</strong><br>
             <div class="table-responsive">

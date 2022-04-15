@@ -10,6 +10,10 @@
 <%@page import="com.mongodb.client.MongoCursor" %>
 <%@page import="org.bson.types.ObjectId" %>
 
+<%@page import="java.net.HttpURLConnection" %>
+<%@page import="java.net.URL" %>
+
+
 
 
 
@@ -23,8 +27,11 @@
 	
 	<% 
 		String id = request.getParameter("Id");
-	%>
-	
+				
+		// (String)request.getAttribute("empLogin");
+		
+	String empLogin =	(String)session.getAttribute("empLogin");
+		%>
 	<% 
 		MongoClient mongoClient = new MongoClient("localhost", 27017);
 		MongoDatabase db = mongoClient.getDatabase("sample_analytics");
@@ -44,8 +51,93 @@
 <div class="container bootstrap snippets bootdey">
 	<div class="panel-body inf-content">
 	    <div class="row">
-	        <div class="col-md-4">
-	            <img alt="" style="width:400px;" title="" class="img-circle img-thumbnail isTooltip" src="https://bootdey.com/img/Content/avatar/avatar7.png" data-original-title="Usuario"> 
+	        <div class="col-md-4">      <%
+	        // need to give the default path
+	        String imagePath_jpg = "https://financialservicecompanyimages.s3.amazonaws.com/" + result.getString("username") + ".jpg"; 
+	        String imagePath_gif = "https://financialservicecompanyimages.s3.amazonaws.com/" + result.getString("username") + ".gif"; 
+	        String imagePath_PNG = "https://financialservicecompanyimages.s3.amazonaws.com/" + result.getString("username") + ".PNG"; 
+	        URL url;
+	        int responseCode;
+	        HttpURLConnection huc;
+	        String imagePath = null;
+	        
+	        try {
+	          		url = new URL(imagePath_jpg);
+	            	huc = (HttpURLConnection) url.openConnection();
+
+	            	responseCode = huc.getResponseCode();
+
+					//Assert.assertEquals(HttpURLConnection.HTTP_OK, responseCode);
+				
+					            System.out.println(responseCode);
+					            
+
+	       if(responseCode == 200)
+	       {
+	    	 //  System.out.println(imagePath);
+	    	   imagePath = imagePath_jpg;
+	       }
+	        
+	       
+	       if(imagePath == null)
+	       {
+	    	   
+	    					url = new URL(imagePath_gif);
+           					huc = (HttpURLConnection) url.openConnection();
+
+           					responseCode = huc.getResponseCode();
+            				if(responseCode == 200)
+						 	       {
+						 	    	   
+						 	    	   imagePath = imagePath_gif;
+						 	       }
+	    	   
+	       }
+	      
+	       if(imagePath ==  null)
+	       {
+					    	   	url = new URL(imagePath_PNG);
+					           	huc = (HttpURLConnection) url.openConnection();
+				
+					           	responseCode = huc.getResponseCode();
+					            if(responseCode == 200)
+							 	       {
+							 	    	   
+							 	    	   imagePath = imagePath_PNG;
+							 	       }
+	    	   
+	    	   
+	       }
+	       
+	        
+	        } catch (Exception E) {
+	            System.out.println(E);
+	        }
+	        
+	       
+	        %>
+	        
+	        
+	        
+	        
+	        
+	            <img alt="" style="width:400px;" title="" class="img-circle img-thumbnail isTooltip" src= "<%= imagePath %>" data-original-title="Usuario"> 
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        <%
+	      ///  if(session.getAttribute("empLogin")== "null")
+	       // {
+	        	
+	      //  }
+	        imagePath = null;
+	        %>
+	        
+	           
 	        </div>
 	        <div class="col-md-6">
 	            <strong>Information</strong><br>
@@ -63,11 +155,14 @@
 	                        <td class="text-primary">
 	                            <%= result.getString("name") %>
 	                        </td>
-
+							<% System.out.println(empLogin);
+							if (empLogin != null && empLogin.equals("on"))
+							{
+							%>
 					 		<td style="vertical-align : middle;text-align:center;" class="submission" rowspan="3">
 	                        <a href="editCustomerDetails.jsp?Id=<%=id%>">Edit</a>
 	                        </td>
-	                        
+	                        <%} %>
 
 	                      
 	                    </tr>
@@ -191,7 +286,9 @@
 			
 				  <tbody>
 				  	<tr>
-				   		<td><%=account_result.getInteger("account_id") %> </td>
+				   		<td> <a href="accountDetails.jsp?Id=<%=account_result.getInteger("account_id").toString()%>" 
+				   		class="link-primary"><%=account_result.getInteger("account_id") %></a></td>
+				   		 			   		 
 				  		<td><%=account_result.get("products") %> </td>
 				  		<td><%=account_result.getInteger("limit") %> </td>
 				  		
