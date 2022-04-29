@@ -21,42 +21,11 @@
 <!-- CSS only -->
 <link rel="stylesheet" href="style.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
 </head>
 <body>
 
-<header>
-  <div class="collapse bg-dark" id="navbarHeader">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-8 col-md-7 py-4">
-          <h4 class="text-white">About</h4>
-          <p class="text-muted">This is a Banking System for people.</p>
-        </div>
-        <div class="col-sm-4 offset-md-1 py-4">
-          <h4 class="text-white">Contact</h4>
-          <ul class="list-unstyled">
-            <li><a href="#" class="text-white">Follow on Twitter</a></li>
-            <li><a href="#" class="text-white">Like on Facebook</a></li>
-            <li><a href="#" class="text-white">Email me</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="navbar navbar-dark bg-dark shadow-sm">
-    <div class="container">
-      <a href="#" class="navbar-brand d-flex align-items-center">
-        <strong>Financial Services Company</strong>
-      </a>
-     
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-         <button class="navbar-toggler" type="button" onclick="window.location='/FinancialServiceCompany/';">Logout</button>
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </div>
-</header>
-
+<%@include file="landing.jsp" %>
 
 	<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
 		<thead>
@@ -66,8 +35,6 @@
 		      <th class="th-sm">User Name
 		      </th>
 		      <th class="th-sm">Email
-		      </th>
-		      <th class="th-sm">Active
 		      </th>
 		      <th class="th-sm">Accounts
 		      </th>
@@ -93,7 +60,6 @@
 	      <td><%= result.getString("name") %></td>
 	      <td><a href="customerDetails.jsp?Id=<%=result.get("_id")%>" class="link-primary"><%= result.getString("username") %></a></td>
 	      <td><%= result.getString("email") %></td>
-	      <td><%= result.get("active") %></td>
 	      <%
 	     
 	    	ArrayList <Integer> account = (ArrayList<Integer>) result.get("accounts");
@@ -123,17 +89,7 @@
 		}
 	%>  
 	</tbody>
-</table>	
-	<!--  <footer class="text-muted py-5">
-	  <div class="container">
-	    <p class="float-end mb-1">
-	      <a href="#">Back to top</a>
-	    </p>
-	    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-	    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="/docs/5.1/getting-started/introduction/">getting started guide</a>.</p>
-	  </div>
-	</footer>-->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</table>
 	<script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
