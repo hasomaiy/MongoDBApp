@@ -30,7 +30,7 @@
       <div class="row">
         <div class="col-sm-8 col-md-7 py-4">
           <h4 class="text-white">About</h4>
-          <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+          <p class="text-muted">This is a Banking System for people.</p>
         </div>
         <div class="col-sm-4 offset-md-1 py-4">
           <h4 class="text-white">Contact</h4>
@@ -48,7 +48,9 @@
       <a href="#" class="navbar-brand d-flex align-items-center">
         <strong>Financial Services Company</strong>
       </a>
+     
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+         <button class="navbar-toggler" type="button" onclick="window.location='/FinancialServiceCompany/';">Logout</button>
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>

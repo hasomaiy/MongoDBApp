@@ -7,6 +7,10 @@
 <%@page import="com.mongodb.client.MongoCollection"%>
 <%@page import="org.bson.Document"%>
 <%@page import="com.mongodb.BasicDBObject" %>
+
+<%@page import="com.mongodb.DBObject" %>
+<%@page import="com.mongodb.util.JSON" %>
+
 <%@page import="com.mongodb.client.MongoCursor" %>
 <%@page import="org.bson.types.ObjectId" %>
 
@@ -24,7 +28,37 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>	
-	
+	<header>
+  <div class="collapse bg-dark" id="navbarHeader">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8 col-md-7 py-4">
+          <h4 class="text-white">About</h4>
+          <p class="text-muted">This is a Banking System for people.</p>
+        </div>
+        <div class="col-sm-4 offset-md-1 py-4">
+          <h4 class="text-white">Contact</h4>
+          <ul class="list-unstyled">
+            <li><a href="#" class="text-white">Follow on Twitter</a></li>
+            <li><a href="#" class="text-white">Like on Facebook</a></li>
+            <li><a href="#" class="text-white">Email me</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+        <strong>Financial Services Company</strong>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+       <button class="navbar-toggler" type="button" onclick="window.location='/FinancialServiceCompany/';">Logout</button>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </div>
+</header>
 	<% 
 		String id = request.getParameter("Id");
 				
@@ -44,8 +78,15 @@
 		MongoCursor<Document> cursor = collection.find(query).iterator();
 
 		Document result = null;
+		Document newdoc = null;
 		while(cursor.hasNext()){
 			result = (Document) cursor.next();
+			//DBObject obj = (DBObject) JSON.parse((String)result.get("tier_and_details"));
+			
+			//  = (DBObject)result.get("tier_and_details");
+			//System.out.println("THis is"+" " +result);
+			//System.out.println("THis is"+" " +obj.keySet() );
+			
 	%>
 	
 <div class="container bootstrap snippets bootdey">
@@ -214,37 +255,48 @@
 	                                            
 	                </tbody>
 	            </table>
-	            
+	           
 	            <table class="table table-striped">
+	            <%
+	            Document obj = (Document)result.get("tier_and_details");
+	            if(!obj.isEmpty())
+	            {
+	            %>
 				  <thead>
 				    <tr>
-				      <th scope="col">#</th>
 				      <th scope="col">Tier</th>
 				      <th scope="col">Benefits</th>
 				      <th scope="col">Active</th>
 				    </tr>
 				  </thead>
+				   <%
+	           
+				//System.out.println("THis is"+" " +obj);
+				for(String key : obj.keySet())
+				{
+					Document obj_under = (Document)	obj.get(key);
+				//	System.out.println(obj_under.getString("tier"));
+					
+			
+	            
+	            
+	            
+	            %>
 				  <tbody>
 				    <tr>
-				      <th scope="row">1</th>
-				      <td></td>
-				      <td>Otto</td>
-				      <td>@mdo</td>
+				      <td><%=obj_under.getString("tier")%></td>
+				      <td><%=obj_under.get("benefits")%></td>
+				      <td><%=obj_under.get("active")%></td>
 				    </tr>
-				    <tr>
-				      <th scope="row">2</th>
-				      <td>Jacob</td>
-				      <td>Thornton</td>
-				      <td>@fat</td>
-				    </tr>
-				    <tr>
-				      <th scope="row">3</th>
-				      <td>Larry</td>
-				      <td>the Bird</td>
-				      <td>@twitter</td>
-				    </tr>
+			
 				  </tbody>
+				  <%
+				}
+	            }
+				%>
 				</table>
+				
+				
 				
 <!-- Account details -->
 <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
