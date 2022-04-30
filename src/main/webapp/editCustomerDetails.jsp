@@ -66,7 +66,7 @@
                            </tr>
                            <tr>
                               <th>Email</th>
-                              <td><input name="email" type="text" class="text" id="email" value="<%=result.getString("email")%>" /></td>
+                              <td><input name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" size="30" required type="text" class="text" id="email" value="<%=result.getString("email")%>" /></td>
                            </tr>
                            <tr>
                               <td class="submission" colspan="6">

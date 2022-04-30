@@ -65,6 +65,7 @@
 	    <div class="row">
 	        <div class="col-md-4">      <%
 	        // need to give the default path
+	        
 	        String imagePath_jpg = "https://financialservicecompanyimages.s3.amazonaws.com/" + result.getString("username") + ".jpg"; 
 	        String imagePath_gif = "https://financialservicecompanyimages.s3.amazonaws.com/" + result.getString("username") + ".gif"; 
 	        String imagePath_PNG = "https://financialservicecompanyimages.s3.amazonaws.com/" + result.getString("username") + ".PNG"; 
@@ -121,8 +122,12 @@
 	    	   
 	       }
 	       
+	       if(imagePath==null)
+	       {
+	    	   imagePath= "https://bootdey.com/img/Content/avatar/avatar7.png";
 	        
-	        } catch (Exception E) {
+	       } 
+	       } catch (Exception E) {
 	            System.out.println(E);
 	        }
 	        

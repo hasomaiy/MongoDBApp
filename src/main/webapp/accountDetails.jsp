@@ -23,6 +23,7 @@
 <%@include file="landing.jsp" %>
 <% 
 		String id = request.getParameter("Id");
+		String empLogin =	(String)session.getAttribute("empLogin");
 		int account_id = Integer.parseInt(id);
 //System.out.println(id);
 	%>
@@ -83,6 +84,16 @@ while(cursor.hasNext()){
                         <td class="text-primary">
                             <%= result.get("limit") %>     
                         </td>
+                        <% System.out.println(empLogin);
+							if (empLogin != null && empLogin.equals("on"))
+							{
+							%>
+					 		<td style="vertical-align : middle;text-align:center;" class="submission" rowspan="1">
+	                        <a href="editAccountDetails.jsp?Id=<%=id%>">Edit</a>
+	                        </td>
+	                        <%} %>
+                        
+                        
                     </tr>
                     <tr>        
                         <td>
@@ -130,7 +141,7 @@ while(cursor.hasNext()){
                         <td>
                             <strong>
                                 <span class="glyphicon glyphicon-cloud text-primary"></span>  
-                                Products                                                
+                                Bucket Start Date                                                
                             </strong>
                         </td>
                         <td class="text-primary">
@@ -141,13 +152,20 @@ while(cursor.hasNext()){
                         <td>
                             <strong>
                                 <span class="glyphicon glyphicon-cloud text-primary"></span>  
-                                Products                                                
+                                Bucket End Date                                                
                             </strong>
                         </td>
                         <td class="text-primary">
                             <%= result.getDate("bucket_end_date") %>   
                         </td>
                     </tr>
+                    
+                    <tr>	
+                              <th class="submission" colspan="2">
+                                 <div align="center"><a href="index.jsp?">Back</a> </div>
+                              </th>
+                           </tr>
+			
 			
 			
 			</tbody>
