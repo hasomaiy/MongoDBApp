@@ -13,6 +13,7 @@
 <%@page import="org.bson.Document"%>
 <%@page import="com.mongodb.client.FindIterable" %>
 <%@page import="com.mongodb.client.MongoCursor" %>
+<%@page import="com.mongodb.BasicDBObject" %>
 
 <html>
 <head>
@@ -47,8 +48,20 @@
 		MongoDatabase db = mongoClient.getDatabase("sample_analytics");
 		
 		MongoCollection<Document> collection = db.getCollection("customers");
-		
 		FindIterable<Document> iter = collection.find();
+
+		if(!search_value.isEmpty()){
+			Document regexQuery = new Document();
+			regexQuery.append("$regex", String.format(".*((?i)%s).*", search_value));
+			BasicDBList obj = new BasicDBList();
+			obj.add(new BasicDBObject("name", regexQuery));
+			obj.add(new BasicDBObject("address", regexQuery));
+			obj.add(new BasicDBObject("email", regexQuery));
+			obj.add(new BasicDBObject("birthdate", regexQuery));
+			BasicDBObject query = new BasicDBObject("$or",obj);
+
+			iter = collection.find(query);
+		}
 		
 		MongoCursor<Document> cursor = iter.iterator();
 		

@@ -11,7 +11,7 @@ $("#dtBasicExample_filter").keyup(function(){
     url: 'index.jsp',
     dataType: 'html',
     type: 'get',
-    data: 'name='+$("#name").val(),
+    data: 'search_value='+$(this).val(),
     success: function (result) {
       $("#dtBasicExample").html(result);
     },
