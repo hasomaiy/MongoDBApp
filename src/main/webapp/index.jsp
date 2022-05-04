@@ -55,9 +55,9 @@
 			regexQuery.append("$regex", String.format(".*((?i)%s).*", search_value));
 			BasicDBList obj = new BasicDBList();
 			obj.add(new BasicDBObject("name", regexQuery));
-			obj.add(new BasicDBObject("address", regexQuery));
+			obj.add(new BasicDBObject("username", regexQuery));
 			obj.add(new BasicDBObject("email", regexQuery));
-			obj.add(new BasicDBObject("birthdate", regexQuery));
+			obj.add(new BasicDBObject("accounts", regexQuery));
 			BasicDBObject query = new BasicDBObject("$or",obj);
 
 			iter = collection.find(query);
